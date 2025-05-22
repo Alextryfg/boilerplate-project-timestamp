@@ -49,7 +49,17 @@ app.get("/api/:datestring", function (req, res) {
   });
 });
 
-app.get("/api/")
+//Si se va a un endpoint sin hora, se devolvera la fecha actual en formato unix y utc en un objeto json
+app.get("/api/", function (req, res) {
+  // Get the current date
+  const date = new Date();
+
+  // Return the date in both formats
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
+});
 
 
 
