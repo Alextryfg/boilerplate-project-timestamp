@@ -29,20 +29,19 @@ app.get("/api/:datestring", function (req, res) {
   const dateString = req.params.datestring;
   let date;
 
-  // Check if the date string is a valid Unix timestamp
+  // comprobar si el parametro es un numero, si lo es, lo convertimos a fecha
   if (!isNaN(dateString)) {
     date = new Date(parseInt(dateString));
   } else {
-    // Check if the date string is a valid ISO format
     date = new Date(dateString);
   }
 
-  // If the date is invalid, return an error message
+  // si la fecha es invalida, devolvemos un error
   if (isNaN(date.getTime())) {
     return res.json({ error: "Invalid Date" });
   }
 
-  // Return the date in both formats
+  // devolvemos la informacion en formato unix y utc
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString()
@@ -54,7 +53,7 @@ app.get("/api/", function (req, res) {
   // Get the current date
   const date = new Date();
 
-  // Return the date in both formats
+  // devolvemos la informacion en formato unix y utc
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString()
@@ -63,7 +62,7 @@ app.get("/api/", function (req, res) {
 
 
 
-// Listen on port set in environment variable or default to 3000
+// Escuchamos el puerto en el que se ejecutara la aplicacion
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
